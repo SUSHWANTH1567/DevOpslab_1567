@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Health Platform — Sign In</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal: #0d9488; --teal-light: #14b8a6; --teal-dark: #0f766e;
+      --navy: #0f172a; --navy-mid: #1e293b;
+      --text: #f1f5f9; --muted: #94a3b8;
+      --card: rgba(30,41,59,0.85); --border: rgba(148,163,184,0.12);
+    }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 20% 30%, rgba(13,148,136,0.18) 0%, transparent 60%),
+                  radial-gradient(ellipse 60% 80% at 80% 70%, rgba(15,118,110,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .grid-bg {
+      position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(148,163,184,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(148,163,184,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 1000px;
+      width: 90%;
+      min-height: 560px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+      position: relative;
+      z-index: 1;
+      animation: slideUp 0.6s ease both;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .left-panel {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, #064e3b 100%);
+      padding: 52px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .left-panel::before {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      bottom: -80px; right: -80px;
+    }
+    .brand { position: relative; z-index: 1; }
+    .brand-icon {
+      width: 52px; height: 52px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; margin-bottom: 24px;
+    }
+    .brand h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px; font-weight: 800;
+      color: #fff; line-height: 1.2; margin-bottom: 12px;
+    }
+    .brand p { color: rgba(255,255,255,0.7); font-size: 14px; line-height: 1.6; }
+    .stats-preview { position: relative; z-index: 1; }
+    .stat-item {
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 14px 18px;
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 12px;
+      backdrop-filter: blur(8px);
+    }
+    .stat-dot { width: 8px; height: 8px; border-radius: 50%; background: #6ee7b7; flex-shrink: 0; }
+    .stat-text { color: rgba(255,255,255,0.85); font-size: 13px; }
+    .stat-val { margin-left: auto; color: #6ee7b7; font-weight: 600; font-size: 14px; }
+    .right-panel {
+      background: var(--card);
+      backdrop-filter: blur(20px);
+      padding: 52px 44px;
+    }
+    .right-panel h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 26px; font-weight: 700;
+      color: var(--text); margin-bottom: 6px;
+    }
+    .right-panel .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 36px; }
+    .form-group { margin-bottom: 20px; }
+    label {
+      display: block; font-size: 12px; font-weight: 500;
+      color: var(--muted); text-transform: uppercase;
+      letter-spacing: 0.08em; margin-bottom: 8px;
+    }
+    input {
+      width: 100%; padding: 13px 16px;
+      background: rgba(15,23,42,0.6);
+      border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text);
+      font-size: 15px; font-family: 'DM Sans', sans-serif;
+      transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+    }
+    input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(13,148,136,0.18);
+    }
+    input::placeholder { color: var(--muted); }
+    .btn-login {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: #fff; border: none; border-radius: 10px;
+      font-size: 15px; font-weight: 600;
+      font-family: 'Syne', sans-serif;
+      cursor: pointer; margin-top: 8px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-login:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(13,148,136,0.4);
+    }
+    .demo-hint {
+      margin-top: 28px; padding: 16px;
+      background: rgba(13,148,136,0.08);
+      border: 1px solid rgba(13,148,136,0.2);
+      border-radius: 10px;
+    }
+    .demo-hint p { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .demo-hint code {
+      display: block; font-size: 12px;
+      color: var(--teal-light); font-family: monospace; margin: 2px 0;
+    }
+    .error-msg {
+      background: rgba(239,68,68,0.12);
+      border: 1px solid rgba(239,68,68,0.3);
+      color: #fca5a5; padding: 10px 14px;
+      border-radius: 8px; font-size: 13px; margin-bottom: 16px;
+    }
+    @media (max-width: 700px) {
+      .container { grid-template-columns: 1fr; }
+      .left-panel { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="container">
+  <div class="left-panel">
+    <div class="brand">
+      <div class="brand-icon">🏥</div>
+      <h1>Intelligent Health Management Cloud Platform</h1>
+      <p>Big data powered health monitoring, risk assessment, and personalized care.</p>
+    </div>
+    <div class="stats-preview">
+      <div class="stat-item">
+        <div class="stat-dot"></div>
+        <span class="stat-text">Volunteers Monitored</span>
+        <span class="stat-val">400</span>
+      </div>
+      <div class="stat-item">
+        <div class="stat-dot"></div>
+        <span class="stat-text">Pre-Intervention Rate</span>
+        <span class="stat-val">28.2%</span>
+      </div>
+      <div class="stat-item">
+        <div class="stat-dot"></div>
+        <span class="stat-text">Post-Intervention Rate</span>
+        <span class="stat-val">23.2%</span>
+      </div>
+      <div class="stat-item">
+        <div class="stat-dot"></div>
+        <span class="stat-text">Health Improvement</span>
+        <span class="stat-val">↓ 5%</span>
+      </div>
+    </div>
+  </div>
+  <div class="right-panel">
+    <h2>Welcome Back</h2>
+    <p class="subtitle">Sign in to access your health dashboard</p>
+    <!--ERROR-->
+    <form method="POST" action="/login">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Enter your username" required />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter your password" required />
+      </div>
+<button type="submit" class="btn-login">Sign In →</button>
+
+<div style="text-align:center; margin-top:20px; padding-top:20px; border-top:1px solid rgba(148,163,184,0.1)">
+  <span style="font-size:13px; color:#64748b">Don't have an account?</span>
+  <a href="/register" style="color:#14b8a6; font-size:13px; font-weight:600; margin-left:6px; text-decoration:none">Create Account →</a>
+</div>
+    </form>
+    <div class="demo-hint">
+      <p><strong>Demo Credentials:</strong></p>
+      <code>Username: volunteer1</code> 
+      <code>Password: password123</code>
+      
+  </div>
+</div>
+</body>
+</html>
